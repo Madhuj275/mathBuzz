@@ -1,23 +1,23 @@
 "use client";
 
-import { Moon, Sun, LogOut } from "lucide-react";
-import { useTheme } from "next-themes";
+import { LogOut, Moon, Sun } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { useTheme } from "next-themes";
 import { useMediaQuery } from "usehooks-ts";
+import { BadgesDisplay } from "@/components/badges-display";
 import { GameBoard } from "@/components/game-board";
 import { Keyboard } from "@/components/keyboard";
+import { Leaderboard } from "@/components/leaderboard";
 import { Settings } from "@/components/settings";
 import { Tutorial } from "@/components/tutorial";
 import { UserStats } from "@/components/user-stats";
-import { Leaderboard } from "@/components/leaderboard";
-import { BadgesDisplay } from "@/components/badges-display";
 import { useGame } from "@/hooks/use-game";
-import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 
 export const GameContent = () => {
   const { theme, setTheme } = useTheme();
-  const { gameWon, targetResult, targetEquation, revealEquation, xpGained } = useGame();
+  const { gameWon, targetResult, targetEquation, revealEquation, xpGained } =
+    useGame();
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const handleThemeToggle = () => {
@@ -27,9 +27,9 @@ export const GameContent = () => {
   const ThemeToggleIcon = theme === "dark" ? Sun : Moon;
 
   return (
-    <div className="flex flex-col gap-6 p-4 z-10 items-center">
-      <div className="text-center space-y-2">
-        <div className="flex gap-2 items-center justify-center">
+    <div className="z-10 flex w-full flex-col items-center gap-4 p-3 sm:gap-6 sm:p-4">
+      <div className="w-full space-y-2 text-center">
+        <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2">
           <Tutorial />
           <Button
             variant="ghost"
@@ -40,7 +40,7 @@ export const GameContent = () => {
             <ThemeToggleIcon />
           </Button>
           <h1
-            className="text-foreground font-heading neon-glow px-2 text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-none"
+            className="px-1 text-foreground font-heading neon-glow text-2xl leading-none md:px-2 md:text-3xl lg:text-4xl xl:text-5xl"
             data-cy="title"
           >
             Mathbuzz
@@ -97,7 +97,9 @@ export const GameContent = () => {
           data-cy="success-message"
         >
           You&apos;ve solved today&apos;s equation! <br />
-          {xpGained > 0 && <span className="text-neon-cyan">+{xpGained} XP earned! </span>}
+          {xpGained > 0 && (
+            <span className="text-neon-cyan">+{xpGained} XP earned! </span>
+          )}
           <br />
           Come back tomorrow for a new challenge!
         </div>

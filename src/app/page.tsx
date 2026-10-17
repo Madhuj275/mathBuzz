@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 import { GameContent } from "@/components/game-content";
 import { GameOver } from "@/components/game-over";
 import { Start } from "@/components/start";
 import { RetroGrid } from "@/components/ui/retro-grid";
 import { useGame } from "@/hooks/use-game";
-
 
 export default function Mathbuzz() {
   const { data: session, status } = useSession();
@@ -49,7 +48,7 @@ export default function Mathbuzz() {
           animate={{ opacity: 1 }}
           exit={reduceMotion ? undefined : { opacity: 0 }}
           transition={{ duration: 0.15, ease: "easeOut" }}
-          className="flex justify-center"
+          className="flex w-full justify-center"
         >
           {screen === "game-over" ? (
             <GameOver />

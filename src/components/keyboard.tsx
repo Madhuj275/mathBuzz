@@ -11,14 +11,15 @@ const OPERATORS_AND_ACTION_KEYS = ["Backspace", "+", "-", "*", "/", "Enter"];
 
 interface KeyboardRowProps {
   keys: string[];
+  className: string;
 }
 
-const KeyboardRow = ({ keys }: KeyboardRowProps) => {
+const KeyboardRow = ({ keys, className }: KeyboardRowProps) => {
   const { mode, handleKeyPress, keyboardFeedback, activeKey, currentGuess } =
     useGame();
   const highlightEnter = currentGuess.length === EQUATION_LENGTH;
   return (
-    <div className="flex gap-2 flex-wrap justify-center">
+    <div className={cn("grid w-full gap-2", className)}>
       {keys.map((key) => {
         const feedback =
           mode === "hard" ? "default" : getFeedbackColor(keyboardFeedback[key]);
@@ -29,10 +30,11 @@ const KeyboardRow = ({ keys }: KeyboardRowProps) => {
             variant={feedback === "default" ? "pixel-key" : feedback}
             data-cy={`key-${key}`}
             className={cn(
-              "min-h-10 min-w-10 font-heading text-xs rounded-none border-2 border-foreground shadow-[2px_2px_0px_var(--color-foreground)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5",
+              "min-h-10 min-w-0 px-1 font-heading text-xs rounded-none border-2 border-foreground shadow-[2px_2px_0px_var(--color-foreground)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5",
               {
                 "scale-95": activeKey === key,
                 "animate-blink-border": highlightEnter && key === "Enter",
+                "col-span-2": key === "Backspace" || key === "Enter",
               },
             )}
           >
@@ -45,8 +47,11 @@ const KeyboardRow = ({ keys }: KeyboardRowProps) => {
 };
 
 export const Keyboard = () => (
-  <div className="flex flex-col gap-2 items-center">
-    <KeyboardRow keys={NUMBER_KEYS} />
-    <KeyboardRow keys={OPERATORS_AND_ACTION_KEYS} />
+  <div className="flex w-full max-w-lg flex-col items-center gap-2">
+    <KeyboardRow keys={NUMBER_KEYS} className="grid-cols-5 sm:grid-cols-10" />
+    <KeyboardRow
+      keys={OPERATORS_AND_ACTION_KEYS}
+      className="grid-cols-4 sm:grid-cols-6"
+    />
   </div>
 );

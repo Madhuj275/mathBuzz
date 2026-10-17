@@ -46,7 +46,7 @@ const GameBoardTile = ({
   return (
     <div
       className={cn(
-        "text-foreground font-heading w-10 md:w-12 aspect-square flex items-center justify-center text-base md:text-lg lg:text-xl xl:text-2xl border-foreground border-4 shadow-[3px_3px_0px_color-mix(in_oklch,var(--color-foreground)_30%,transparent)] transition-colors duration-300",
+        "text-foreground font-heading w-full aspect-square flex items-center justify-center text-xs sm:text-base md:text-lg lg:text-xl xl:text-2xl border-foreground border-2 sm:border-4 shadow-[3px_3px_0px_color-mix(in_oklch,var(--color-foreground)_30%,transparent)] transition-colors duration-300",
         mode === "normal" && {
           "bg-success text-success-foreground": feedbackColor === "success",
           "bg-warning text-warning-foreground": feedbackColor === "warning",
@@ -95,7 +95,10 @@ const GameBoardRow = ({ rowIndex, revealingRow }: GameBoardRowProps) => {
 
   return (
     <div
-      className={cn("flex gap-2", !isFilled && !isCurrentRow && "opacity-50")}
+      className={cn(
+        "grid grid-cols-6 gap-1 sm:gap-2",
+        !isFilled && !isCurrentRow && "opacity-50",
+      )}
       style={{ perspective: "400px" }}
       data-cy={`row-${rowIndex}`}
     >
@@ -148,7 +151,7 @@ export const GameBoard = () => {
 
   return (
     <div
-      className="grid grid-rows-6 gap-2 bg-background/20 backdrop-blur-sm border-4 border-foreground p-2 shadow-[0_0_28px_color-mix(in_oklch,var(--color-neon-cyan)_22%,transparent)]"
+      className="grid w-[min(100%,22rem)] grid-rows-6 gap-2 border-2 border-foreground bg-background/20 p-1 shadow-[0_0_28px_color-mix(in_oklch,var(--color-neon-cyan)_22%,transparent)] backdrop-blur-sm sm:border-4 sm:p-2"
       data-cy="grid"
     >
       {Array.from({ length: ROWS }, (_, rowIndex) => (
