@@ -7,7 +7,7 @@ import { EQUATION_LENGTH } from "@/utils/constants";
 import { getFeedbackColor } from "@/utils/feedback";
 
 const NUMBER_KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-const OPERATORS_AND_ACTION_KEYS = ["Backspace", "+", "-", "*", "/", "Enter"];
+const OPERATORS_AND_ACTION_KEYS = ["+", "-", "*", "/", "Backspace", "Enter"];
 
 interface KeyboardRowProps {
   keys: string[];
@@ -34,7 +34,8 @@ const KeyboardRow = ({ keys, className }: KeyboardRowProps) => {
               {
                 "scale-95": activeKey === key,
                 "animate-blink-border": highlightEnter && key === "Enter",
-                "col-span-2": key === "Backspace" || key === "Enter",
+                "col-span-2 sm:col-span-1":
+                  key === "Backspace" || key === "Enter",
               },
             )}
           >

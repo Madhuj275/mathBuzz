@@ -27,36 +27,69 @@ export const GameContent = () => {
   const ThemeToggleIcon = theme === "dark" ? Sun : Moon;
 
   return (
-    <div className="z-10 flex w-full flex-col items-center gap-4 p-3 sm:gap-6 sm:p-4">
+    <div className="z-10 flex w-full flex-col items-center gap-4 p-3 md:gap-6 md:p-4">
       <div className="w-full space-y-2 text-center">
-        <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2">
-          <Tutorial />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleThemeToggle}
-            aria-label="Toggle theme"
-          >
-            <ThemeToggleIcon />
-          </Button>
-          <h1
-            className="px-1 text-foreground font-heading neon-glow text-2xl leading-none md:px-2 md:text-3xl lg:text-4xl xl:text-5xl"
-            data-cy="title"
-          >
-            Mathbuzz
-          </h1>
-          <Settings />
-          <Leaderboard />
-          <BadgesDisplay />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => signOut({ callbackUrl: "/auth" })}
-            aria-label="Logout"
-          >
-            <LogOut className="size-4" />
-          </Button>
-        </div>
+        {isDesktop ? (
+          <div className="flex items-center justify-center gap-2">
+            <Tutorial />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleThemeToggle}
+              aria-label="Toggle theme"
+            >
+              <ThemeToggleIcon />
+            </Button>
+            <h1
+              className="px-2 text-foreground font-heading neon-glow text-2xl leading-none md:text-3xl lg:text-4xl xl:text-5xl"
+              data-cy="title"
+            >
+              Mathbuzz
+            </h1>
+            <Settings />
+            <Leaderboard />
+            <BadgesDisplay />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => signOut({ callbackUrl: "/auth" })}
+              aria-label="Logout"
+            >
+              <LogOut className="size-4" />
+            </Button>
+          </div>
+        ) : (
+          <>
+            <div className="flex items-center justify-center gap-1">
+              <Tutorial />
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleThemeToggle}
+                aria-label="Toggle theme"
+              >
+                <ThemeToggleIcon />
+              </Button>
+              <Settings />
+              <Leaderboard />
+              <BadgesDisplay />
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => signOut({ callbackUrl: "/auth" })}
+                aria-label="Logout"
+              >
+                <LogOut className="size-4" />
+              </Button>
+            </div>
+            <h1
+              className="mt-2 text-3xl leading-none text-foreground font-heading neon-glow"
+              data-cy="title"
+            >
+              Mathbuzz
+            </h1>
+          </>
+        )}
         <UserStats />
         <h2
           className="text-foreground text-sm lg:text-lg leading-none"
