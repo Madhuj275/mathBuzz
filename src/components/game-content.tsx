@@ -1,0 +1,107 @@
+"use client";
+
+import { Moon, Sun, LogOut } from "lucide-react";
+import { useTheme } from "next-themes";
+import { signOut } from "next-auth/react";
+import { useMediaQuery } from "usehooks-ts";
+import { GameBoard } from "@/components/game-board";
+import { Keyboard } from "@/components/keyboard";
+import { Settings } from "@/components/settings";
+import { Tutorial } from "@/components/tutorial";
+import { UserStats } from "@/components/user-stats";
+import { Leaderboard } from "@/components/leaderboard";
+import { BadgesDisplay } from "@/components/badges-display";
+import { useGame } from "@/hooks/use-game";
+import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
+
+export const GameContent = () => {
+  const { theme, setTheme } = useTheme();
+  const { gameWon, targetResult, targetEquation, revealEquation, xpGained } = useGame();
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  const handleThemeToggle = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
+  const ThemeToggleIcon = theme === "dark" ? Sun : Moon;
+
+  return (
+    <div className="flex flex-col gap-6 p-4 z-10 items-center">
+      <div className="text-center space-y-2">
+        <div className="flex gap-2 items-center justify-center">
+          <Tutorial />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleThemeToggle}
+            aria-label="Toggle theme"
+          >
+            <ThemeToggleIcon />
+          </Button>
+          <h1
+            className="text-foreground font-heading neon-glow px-2 text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-none"
+            data-cy="title"
+          >
+            Mathbuzz
+          </h1>
+          <Settings />
+          <Leaderboard />
+          <BadgesDisplay />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => signOut({ callbackUrl: "/auth" })}
+            aria-label="Logout"
+          >
+            <LogOut className="size-4" />
+          </Button>
+        </div>
+        <UserStats />
+        <h2
+          className="text-foreground text-sm lg:text-lg leading-none"
+          data-cy="subtitle"
+        >
+          {revealEquation ? (
+            <>
+              The answer is{" "}
+              <span
+                className="bg-foreground text-background p-1"
+                data-cy="revealed-equation"
+              >
+                {targetEquation} = {targetResult}
+              </span>
+            </>
+          ) : isDesktop ? (
+            <>
+              Solve the hidden equation{" "}
+              <span className="bg-foreground text-background p-1">
+                that results in {targetResult}
+              </span>
+            </>
+          ) : (
+            <>
+              Find the hidden calculation{" "}
+              <span className="bg-foreground text-background p-1">
+                that equals {targetResult}
+              </span>
+            </>
+          )}
+        </h2>
+      </div>
+      <GameBoard />
+      <Keyboard />
+      {gameWon && (
+        <div
+          className="mt-2 px-4 py-3 border-4 border-success bg-success/10 text-success font-bold text-center text-sm md:text-base animate-pop"
+          data-cy="success-message"
+        >
+          You&apos;ve solved today&apos;s equation! <br />
+          {xpGained > 0 && <span className="text-neon-cyan">+{xpGained} XP earned! </span>}
+          <br />
+          Come back tomorrow for a new challenge!
+        </div>
+      )}
+    </div>
+  );
+};

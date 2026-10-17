@@ -1,0 +1,79 @@
+"use client";
+
+import { Info } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+export const Tutorial = () => {
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleOpenChange = (value: boolean) => {
+    setOpen(value);
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogTrigger asChild>
+        <Button variant="ghost" size="icon" aria-label="How to play">
+          <Info />
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="text-foreground">
+            How to Play Mathbuzz
+          </DialogTitle>
+        </DialogHeader>
+        <div className="prose space-y-2 text-sm text-foreground">
+          <p>
+            Challenge yourself to uncover the hidden calculation in just 6
+            attempts!
+          </p>
+          <p>
+            With each guess, the tile colors will shift, revealing how close you
+            are to cracking the code.
+          </p>
+          <p className="flex gap-2">
+            <Button variant="success">5</Button>
+            <Button variant="outline">0</Button>
+            <Button variant="success">/</Button>
+            <Button variant="warning">5</Button>
+            <Button variant="outline">-</Button>
+            <Button variant="outline">2</Button>
+          </p>
+          <ul className="list-disc pl-4">
+            <li>Green: Perfectly placed.</li>
+            <li>Orange: Correct, but misplaced.</li>
+            <li>Gray: Not part of the solution.</li>
+          </ul>
+          <p className="font-bold">Key Rules to Remember</p>
+          <ul className="list-disc pl-4">
+            <li>
+              Repetition allowed: Numbers and operators may appear more than
+              once.
+            </li>
+            <li>
+              Order matters: Follow standard order of operations (/ or * before
+              - or +).
+            </li>
+            <li>
+              Flexibility in solutions: Commutative answers (e.g., 20+7+3 and
+              3+7+20) are valid.
+            </li>
+            <li>
+              Auto-arrangement: Commutative solutions will be automatically
+              aligned with the exact answer.
+            </li>
+          </ul>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};

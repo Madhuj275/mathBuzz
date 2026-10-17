@@ -1,0 +1,387 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-magenta: var(--neon-magenta);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --animate-grid: grid 15s linear infinite;
+  --animate-shake: shake 0.4s ease-in-out;
+  --animate-pop: pop 0.15s ease-out;
+  --animate-glitch: glitch 5s linear infinite;
+  --animate-tile-flip: tile-flip 0.5s ease-in-out both;
+  --animate-tile-pop: tile-pop 0.08s ease-out both;
+  --animate-tile-bounce: tile-bounce 0.6s ease-in-out both;
+  --animate-blink-border: blink-border 1s step-start infinite;
+  --animate-flash-title: flash-title 1.2s ease-in-out 3;
+  @keyframes glitch {
+    0%,
+    88%,
+    100% {
+      text-shadow: none;
+    }
+    90% {
+      text-shadow:
+        -3px 0 var(--neon-magenta),
+        3px 0 var(--neon-cyan);
+    }
+    92% {
+      text-shadow:
+        3px 0 var(--neon-magenta),
+        -2px 0 var(--neon-cyan);
+    }
+    94% {
+      text-shadow: -1px 0 var(--neon-cyan);
+    }
+    96% {
+      text-shadow: none;
+    }
+  }
+  @keyframes tile-flip {
+    0% {
+      transform: rotateX(0deg);
+    }
+    45% {
+      transform: rotateX(-90deg);
+    }
+    55% {
+      transform: rotateX(-90deg);
+    }
+    100% {
+      transform: rotateX(0deg);
+    }
+  }
+  @keyframes tile-pop {
+    0% {
+      transform: scale(1);
+    }
+    40% {
+      transform: scale(1.18);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes tile-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    30% {
+      transform: translateY(-14px);
+    }
+    60% {
+      transform: translateY(-6px);
+    }
+  }
+  @keyframes blink-border {
+    0%,
+    100% {
+      border-color: var(--neon-cyan);
+    }
+    50% {
+      border-color: var(--border);
+    }
+  }
+  @keyframes flash-title {
+    0%,
+    100% {
+      opacity: 1;
+      color: var(--foreground);
+    }
+    10% {
+      opacity: 0.6;
+      color: var(--neon-magenta);
+    }
+    20% {
+      opacity: 1;
+    }
+    30% {
+      opacity: 0.8;
+      color: var(--neon-magenta);
+    }
+    40% {
+      opacity: 1;
+    }
+  }
+  @keyframes grid {
+    0% {
+      transform: translateY(-50%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20% {
+      transform: translateX(-6px);
+    }
+    40% {
+      transform: translateX(6px);
+    }
+    60% {
+      transform: translateX(-4px);
+    }
+    80% {
+      transform: translateX(4px);
+    }
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.12);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  --font-heading: var(--font-press-start);
+}
+
+:root {
+  --radius: 0.625rem;
+  --neon-cyan: oklch(0.58 0.12 200);
+  --neon-magenta: oklch(0.58 0.22 15);
+  --scanline-color: rgba(0, 0, 0, 0.04);
+  --vignette-color: rgba(20, 10, 50, 0.18);
+  --card: oklch(0.99 0.005 270);
+  --card-foreground: oklch(0.18 0.02 270);
+  --popover: oklch(0.99 0.005 270);
+  --popover-foreground: oklch(0.18 0.02 270);
+  --primary: oklch(0.25 0.03 270);
+  --primary-foreground: oklch(0.97 0.01 270);
+  --secondary: oklch(0.93 0.015 270);
+  --secondary-foreground: oklch(0.25 0.03 270);
+  --muted: oklch(0.93 0.015 270);
+  --muted-foreground: oklch(0.45 0.02 270);
+  --accent: oklch(0.93 0.015 270);
+  --accent-foreground: oklch(0.25 0.03 270);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.85 0.02 270);
+  --input: oklch(0.85 0.02 270);
+  --ring: var(--neon-cyan);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --success: oklch(0.74 0.196 128);
+  --success-foreground: oklch(0.145 0 0);
+  --warning: oklch(0.75 0.172 66);
+  --warning-foreground: oklch(0.145 0 0);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  --background: oklch(0.97 0.01 270);
+  --foreground: oklch(0.18 0.02 270);
+}
+
+.dark {
+  --neon-cyan: oklch(0.85 0.14 200);
+  --neon-magenta: oklch(0.66 0.24 15);
+  --scanline-color: rgba(255, 255, 255, 0.03);
+  --vignette-color: rgba(8, 4, 26, 0.45);
+  --background: oklch(0.16 0.02 270);
+  --foreground: oklch(0.93 0.015 280);
+  --card: oklch(0.21 0.025 270);
+  --card-foreground: oklch(0.93 0.015 280);
+  --popover: oklch(0.21 0.025 270);
+  --popover-foreground: oklch(0.93 0.015 280);
+  --primary: oklch(0.93 0.015 280);
+  --primary-foreground: oklch(0.18 0.02 270);
+  --secondary: oklch(0.27 0.03 270);
+  --secondary-foreground: oklch(0.93 0.015 280);
+  --muted: oklch(0.27 0.03 270);
+  --muted-foreground: oklch(0.74 0.02 280);
+  --accent: oklch(0.27 0.03 270);
+  --accent-foreground: oklch(0.93 0.015 280);
+  --destructive: oklch(0.65 0.23 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.93 0.02 280 / 14%);
+  --input: oklch(0.93 0.02 280 / 18%);
+  --ring: var(--neon-cyan);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --success: oklch(0.65 0.196 128);
+  --success-foreground: oklch(0.985 0 0);
+  --warning: oklch(0.68 0.172 66);
+  --warning-foreground: oklch(0.145 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* ─── CRT overlay ─────────────────────────────────────────── */
+.crt-scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    var(--scanline-color) 2px,
+    var(--scanline-color) 4px
+  );
+}
+
+.crt-vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    var(--vignette-color) 100%
+  );
+}
+
+/* ─── Neon glow (vaporwave accent) ────────────────────────── */
+.neon-glow {
+  text-shadow:
+    0 0 8px color-mix(in oklch, var(--neon-cyan) 55%, transparent),
+    0 0 28px color-mix(in oklch, var(--neon-cyan) 30%, transparent);
+}
+
+/* ─── Radio player ────────────────────────────────────────── */
+@keyframes radio-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.radio-marquee {
+  animation: radio-marquee 14s linear infinite;
+}
+
+.radio-volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 56px;
+  height: 2px;
+  background: color-mix(in oklch, var(--foreground) 25%, transparent);
+  outline: none;
+  cursor: pointer;
+}
+
+.radio-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 8px;
+  height: 8px;
+  background: var(--neon-cyan);
+  cursor: pointer;
+}
+
+.radio-volume-slider::-moz-range-thumb {
+  width: 8px;
+  height: 8px;
+  background: var(--neon-cyan);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.radio-volume-slider:hover::-webkit-slider-thumb,
+.radio-volume-slider:focus-visible::-webkit-slider-thumb {
+  background: var(--foreground);
+}
+
+.radio-volume-slider:hover::-moz-range-thumb,
+.radio-volume-slider:focus-visible::-moz-range-thumb {
+  background: var(--foreground);
+}
+
+/* ─── Reduced motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-glitch,
+  .animate-grid,
+  .animate-shake,
+  .animate-pop,
+  .animate-tile-flip,
+  .animate-tile-pop,
+  .animate-tile-bounce,
+  .animate-blink-border,
+  .animate-flash-title,
+  .animate-pulse,
+  .radio-marquee {
+    animation: none;
+  }
+}
